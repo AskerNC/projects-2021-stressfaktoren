@@ -30,8 +30,8 @@ def u_optimiser(m, r, pbar, taug, taup, epsilon, phi):
     def objective(p_h, m, r, pbar, taug, taup, epsilon, phi):
         return(-u_func(p_h=p_h, m=m, r=r, pbar=pbar, taug=taug, taup=taup, epsilon=epsilon, phi=phi))  
 
-    sol = optimize.minimize_scalar(objective,k, method='bounded',bounds=(0,m) args =(m, r, pbar, taug, taup, epsilon, phi))
-    
+    sol = optimize.minimize_scalar(objective, method='bounded', bounds=(0,m), args =(m, r, pbar, taug, taup, epsilon, phi))
+
     """
     h_star = optimal housing
     c_star = optimal consumption

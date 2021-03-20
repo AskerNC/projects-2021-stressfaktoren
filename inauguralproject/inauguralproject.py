@@ -29,8 +29,8 @@ def u_optimiser(m, r, pbar, taug, taup, epsilon, phi):
     """
     def objective(p_h, m, r, pbar, taug, taup, epsilon, phi):
         return(-u_func(p_h=p_h, m=m, r=r, pbar=pbar, taug=taug, taup=taup, epsilon=epsilon, phi=phi))  
-
-    sol = optimize.minimize_scalar(objective, method='bounded', bounds=(0,m), args =(m, r, pbar, taug, taup, epsilon, phi))
+    guess=m
+    sol = optimize.minimize(objective, guess, method='Nelder-Mead', args =(m, r, pbar, taug, taup, epsilon, phi))
 
     """
     h_star = optimal housing
@@ -42,4 +42,5 @@ def u_optimiser(m, r, pbar, taug, taup, epsilon, phi):
     u_star=u_func(p_h=h_star, m=m, r=r, pbar=pbar, taug=taug, taup=taup, epsilon=epsilon, phi=phi)
     return h_star, c_star, u_star
 
+#Plot
  

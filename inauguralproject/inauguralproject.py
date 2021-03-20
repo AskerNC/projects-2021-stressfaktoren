@@ -11,5 +11,5 @@ def square(x):
     
     """
     
-    y = x**2
+    y = x**3
     return y

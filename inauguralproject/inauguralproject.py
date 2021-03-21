@@ -5,12 +5,12 @@ import matplotlib.pyplot as plt
 
 
 #utility function 
-def u_func(p_h, m, r, pbar, taug, taup, epsilon, phi):
+def u_func(h, m, r, pbar, taug, taup, epsilon, phi):
   """
   Housing CRRA function 
   
    Variables
-  p_h : house true value
+  h : house true value
   m : Amount of cash on hand
   r : interest rate
   pbar : tax bracket cutoff 
@@ -19,18 +19,16 @@ def u_func(p_h, m, r, pbar, taug, taup, epsilon, phi):
   epsilon : undercut factor
   phi : Good old
   """
-  u = (m-r*p_h-taug*p_h*epsilon-taup*max(p_h*epsilon-pbar,0))**(1-phi)*p_h**phi
+  u = (m-(r*h+taug*h*epsilon+taup*max(h*epsilon-pbar,0)))**(1-phi)*(h)**phi
   return u   
-
 # scalar optimizer function
 def u_optimiser(m, r, pbar, taug, taup, epsilon, phi):
     """ 
     Optimizises with respect to utility
     """
-    def objective(p_h, m, r, pbar, taug, taup, epsilon, phi):
-        return(-u_func(p_h=p_h, m=m, r=r, pbar=pbar, taug=taug, taup=taup, epsilon=epsilon, phi=phi))  
-    guess=m
-    sol = optimize.minimize(objective, guess, method='Nelder-Mead', args =(m, r, pbar, taug, taup, epsilon, phi))
+    def objective(h, m, r, pbar, taug, taup, epsilon, phi):
+        return(-u_func(h=h, m=m, r=r, pbar=pbar, taug=taug, taup=taup, epsilon=epsilon, phi=phi))  
+    sol = optimize.minimize_scalar(objective, args =(m, r, pbar, taug, taup, epsilon, phi))
 
     """
     h_star = optimal housing
@@ -38,8 +36,8 @@ def u_optimiser(m, r, pbar, taug, taup, epsilon, phi):
     u_star = optimal utility
     """ 
     h_star=sol.x
-    c_star=m-r*h_star-taug*h_star*epsilon-taup*max(h_star*epsilon-pbar,0)
-    u_star=u_func(p_h=h_star, m=m, r=r, pbar=pbar, taug=taug, taup=taup, epsilon=epsilon, phi=phi)
+    c_star=m-(r*h_star+taug*h_star*epsilon+taup*max(h_star*epsilon-pbar,0))
+    u_star=u_func(h=h_star, m=m, r=r, pbar=pbar, taug=taug, taup=taup, epsilon=epsilon, phi=phi)
     return h_star, c_star, u_star
 
 #Function for plotting two figures

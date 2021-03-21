@@ -73,3 +73,39 @@ def two_figures(x_left, y_left, title_left, xlabel_left, ylabel_left, x_right, y
     ax_right.set_title(title_right)
     ax_right.set_xlabel(xlabel_right)
     ax_right.set_ylabel(ylabel_right)
+
+#Tax function
+def tax(seed,size,mean,sigma,pbar=3.0,taug=0.012,taup=0.004,epsilon=0.5,phi=0.3,r=0.03):
+    """
+    A function for calculating the total tax revenue
+
+    Inputs:
+    seed: seed number
+    size: number of random draws
+    mean: The mean of the lognormal distribution
+    sigma: Standard deviation for the distribution
+    
+    Optimisation variables:
+    pbar : tax bracket cutoff 
+    taug : standard house tax
+    taup : progressive house tax
+    epsilon: undercut factor
+    Phi: Good old
+
+    output:
+    Total tax revenue
+    """
+    #Draw a random m value from the lognormal distribution.
+    np.random.seed(seed)
+    m_i = np.random.lognormal(mean=mean,sigma=sigma,size=size)
+
+    #Solve the optimization problem for each individual and the tax from it to 'tax'.
+    tax = 0
+
+    for i, m_i in enumerate (m_i):        
+        hc_i = u_optimiser(m_i,r,pbar,taug,taup,epsilon,phi)
+        tax_i = taug*hc_i[0]+taup*max(hc_i[0]-pbar,0)
+        tax += tax_i
+    
+    return tax
+

@@ -32,13 +32,11 @@ def u_optimiser(m, r, pbar, taug, taup, epsilon, phi):
 
     """
     h_star = optimal housing
-    c_star = optimal consumption
-    u_star = optimal utility
     """ 
     h_star=sol.x
-    c_star=m-(r*h_star+taug*h_star*epsilon+taup*max(h_star*epsilon-pbar,0))
-    u_star=u_func(h=h_star, m=m, r=r, pbar=pbar, taug=taug, taup=taup, epsilon=epsilon, phi=phi)
-    return h_star, c_star, u_star
+    return h_star
+
+
 
 #Function for plotting two figures
 def two_figures(x_left, y_left, title_left, xlabel_left, ylabel_left, x_right, y_right, title_right, xlabel_right, ylabel_right):
@@ -105,4 +103,23 @@ def tax(seed,size,mean,sigma,pbar=3.0,taug=0.012,taup=0.004,epsilon=0.5,phi=0.3,
         tax_i = taug*hc_i[0]+taup*max(hc_i[0]-pbar,0)
         tax += tax_i
     
+    return tax
+
+#Tax function2
+def tax_new(h,pbar=3.0,taug=0.012,taup=0.004,epsilon=0.5):
+    """
+    A function for calculating the total tax revenue
+
+    Inputs:
+    pbar : tax bracket cutoff 
+    taug : standard house tax
+    taup : progressive house tax
+    epsilon: undercut factor
+    
+    output:
+    Total tax revenue
+    """
+
+    #Solve the optimization problem for each individual and the tax from it to 'tax'.
+    tax = taug*h*epsilon+taup*max(h*epsilon-pbar,0)
     return tax

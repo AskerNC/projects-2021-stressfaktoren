@@ -108,4 +108,3 @@ def tax(seed,size,mean,sigma,pbar=3.0,taug=0.012,taup=0.004,epsilon=0.5,phi=0.3,
         tax += tax_i
     
     return tax
-

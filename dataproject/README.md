@@ -2,9 +2,7 @@
 
 Group name: Stressfaktoren
 
-Group members:
--Frederik Holland Wiese 
--Nicolaj Ellemose Petersen
+Group members: Frederik Holland Wiese & Nicolaj Ellemose Petersen
 
 Our data analysis project examines data about wages in Denmark for different regions and age groups in the time span 1992-2019.
 

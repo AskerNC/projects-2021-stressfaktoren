@@ -5,3 +5,7 @@ Our project is titled Model project OLG. It solves two OLG models, one having a 
 The **results** of the project can be seen from running [modelproject.ipynb](modelproject.ipynb).
 
 **Dependencies:** Apart from a standard Anaconda Python 3 installation, the project requires no further packages.
+
+Group name: stressfaktoren
+
+Group members: Frederik Holland Wiese (DRC618) & Nicolaj Ellemose Petersen (CFX845)
